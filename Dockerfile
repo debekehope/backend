@@ -15,7 +15,6 @@ COPY pom.xml /app
 RUN mvn -f /app/pom.xml clean package -DskipTests
 
 #copy the built jar file to the container.
-COPY ./target/*.jar /app/app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app/app.jar"]
 

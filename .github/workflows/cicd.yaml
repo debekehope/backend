@@ -17,7 +17,7 @@ jobs:
 
     - name: docker build
       run: |
-        docker build -t backend:latest
+        docker build -t backend:latest .
 
 
 

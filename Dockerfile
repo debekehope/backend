@@ -13,7 +13,7 @@ COPY ./src /app/src
 COPY pom.xml /app
 
 #Build the application using Maven
-RUN mvn -f /app/pom.xml clean package -DskipTests
+RUN mvn -f /app/pom.xml clean package
 
 #copy the built jar file to the container.
 EXPOSE 8080

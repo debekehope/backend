@@ -15,12 +15,36 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+    # Login to ECR
+#=============
+    - name: Login to ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+
+
     - name: docker build
       run: |
         echo "${{ vars.ENV_FILE }}" > .env
-        ls -la
-        wc -l .env
+      # ls -la
+      # wc -l .env
         docker build -t netflix-backend:latest .
+    
+    
+
+    - name: docker push
+      run: |
+        docker tag netflix-backend:latest 284027193886.dkr.ecr.us-east-1.amazonaws.com/netflix-backend:${GITHUB_RUN_NUMBER}
+        docker push 284027193886.dkr.ecr.us-east-1.amazonaws.com/netflix-backend:${GITHUB_RUN_NUMBER}
+
 
 
 

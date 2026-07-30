@@ -33,9 +33,7 @@ jobs:
 
     - name: docker build
       run: |
-        echo "${{ vars.ENV_FILE }}" > .env
-      # ls -la
-      # wc -l .env
+        echo "${{ vars.APPLICATION_PROPERTIES }}" > application.properties
         docker build -t netflix-backend:latest .
     
     

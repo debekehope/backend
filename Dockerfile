@@ -15,6 +15,9 @@ COPY pom.xml /app
 #Build the application using Maven
 RUN mvn -f /app/pom.xml clean package
 
+# Move the built jar to a predictable path
+RUN mv /app/target/*.jar /app/app.jar
+
 #copy the built jar file to the container.
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","/app/app.jar"]
